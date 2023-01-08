@@ -30,7 +30,7 @@ export default function App() {
     setSelectedCard(card);
   }
   return (
-    <div className="root">
+    <>
       <Header />
       <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick}/>
       <Footer />
@@ -64,6 +64,6 @@ export default function App() {
           </label>
         </PopupWithForm>}
       {selectedCard && <ImagePopup card={selectedCard} onClose={closeAllPopups} />}
-    </div>
+    </>
   );
 };
