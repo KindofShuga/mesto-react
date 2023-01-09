@@ -24,7 +24,7 @@ export default function App() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
-    setSelectedCard(false);
+    setSelectedCard(null);
   }
   function handleCardClick(card) {
     setSelectedCard(card);
@@ -32,10 +32,17 @@ export default function App() {
   return (
     <>
       <Header />
-      <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick}/>
+      <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick} />
       <Footer />
       {isEditProfilePopupOpen &&
-        <PopupWithForm name="profile" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} title="Редактировать профиль" buttonTitle="Сохранить" ariaLabel="Сохранить изменения">
+        <PopupWithForm
+          name="profile"
+          isOpen={isEditProfilePopupOpen}
+          onClose={closeAllPopups}
+          title="Редактировать профиль"
+          buttonTitle="Сохранить"
+          ariaLabel="Сохранить изменения"
+        >
           <label className="popup__field">
             <input type="text" id="name-input" name="name" className="popup__input popup__input_el_name" placeholder="Имя" minLength="2" maxLength="40" required />
             <span className="name-input-error"></span>
@@ -44,9 +51,17 @@ export default function App() {
             <input type="text" id="job-input" name="job" className="popup__input popup__input_el_job" placeholder="О себе" minLength="2" maxLength="200" required />
             <span className="job-input-error"></span>
           </label>
-        </PopupWithForm>}
+        </PopupWithForm>
+      }
       {isAddPlacePopupOpen &&
-        <PopupWithForm name="place" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} title="Новое место" buttonTitle="Создать" ariaLabel="Добавить место">
+        <PopupWithForm
+          name="place"
+          isOpen={isAddPlacePopupOpen}
+          onClose={closeAllPopups}
+          title="Новое место"
+          buttonTitle="Создать"
+          ariaLabel="Добавить место"
+        >
           <label className="popup__field">
             <input type="text" id="title-input" name="name" className="popup__input popup__input_el_title" placeholder="Название" minLength="2" maxLength="30" required />
             <span className="title-input-error"></span>
@@ -55,14 +70,23 @@ export default function App() {
             <input type="url" id="img-input" name="link" className="popup__input popup__input_el_img" placeholder="Ссылка на картинку" required />
             <span className="img-input-error"></span>
           </label>
-        </PopupWithForm>}
+        </PopupWithForm>
+      }
       {isEditAvatarPopupOpen &&
-        <PopupWithForm name="avatar" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} title="Обновить аватар" buttonTitle="Сохранить" ariaLabel="Сохранить изменения">
+        <PopupWithForm
+          name="avatar"
+          isOpen={isEditAvatarPopupOpen}
+          onClose={closeAllPopups}
+          title="Обновить аватар"
+          buttonTitle="Сохранить"
+          ariaLabel="Сохранить изменения"
+        >
           <label className="popup__field">
             <input type="url" id="avatar-input" name="link" className="popup__input popup__input_el_img" placeholder="Ссылка на картинку" required />
             <span className="avatar-input-error"></span>
           </label>
-        </PopupWithForm>}
+        </PopupWithForm>
+      }
       {selectedCard && <ImagePopup card={selectedCard} onClose={closeAllPopups} />}
     </>
   );
