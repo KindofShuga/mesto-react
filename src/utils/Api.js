@@ -88,28 +88,20 @@ class Api {
                 console.log(err);
             });
     }
-    addLike(id) {
+    toggleLike(id, isDisliked) {
         return fetch(`${this._options.baseUrl}/cards/${id}/likes`, {
-            method: 'PUT',
+            method: isDisliked ? 'PUT' : 'DELETE',
             headers: this._options.headers
         })
             .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
             .catch(err => console.log(err));
     }
-    deleteLike(id) {
-        return fetch(`${this._options.baseUrl}/cards/${id}/likes`, {
-            method: 'DELETE',
-            headers: this._options.headers
-        })
-            .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
-            .catch(err => console.log(err));
-    }
-    addAvatar(avatar) {
+    addAvatar({avatar}) {
         return fetch(`${this._options.baseUrl}/users/me/avatar`, {
             method: 'PATCH',
             headers: this._options.headers,
             body: JSON.stringify({
-                avatar: avatar.link
+                avatar: avatar
             })
         })
             .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
