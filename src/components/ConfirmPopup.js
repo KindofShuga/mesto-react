@@ -1,4 +1,4 @@
-import PopupWithForm from '../PopupWithForm/PopupWithForm.js';
+import PopupWithForm from './PopupWithForm.js';
 import { useState } from 'react';
 export default function ConfirmPopup({ isOpen, onClose, onCardDelete, delitedCard }) {
     const [buttonTitle, setButtonTitle] = useState("Да");
@@ -16,7 +16,7 @@ export default function ConfirmPopup({ isOpen, onClose, onCardDelete, delitedCar
             title="Вы уверены?"
             buttonTitle={buttonTitle}
             ariaLabel="Удалить карточку"
-            >
+        >
         </PopupWithForm>
     );
 }

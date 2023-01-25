@@ -2,36 +2,24 @@ class Api {
     constructor(options) {
         this._options = options;
     }
+    _getResponseData(res) {
+        if (!res.ok) {
+            return Promise.reject(`Ошибка: ${res.status}`);
+        }
+        return res.json();
+    }
     getProfile() {
         return fetch(`${this._options.baseUrl}/users/me`, {
             headers: this._options.headers
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                } else {
-                    return Promise.reject(`Ошибка: ${res.status}`);
-                }
-            })
-            .catch((err) => { console.log(err); });
+            .then(this._getResponseData)
     }
-
     getInitialCards() {
         return fetch(`${this._options.baseUrl}/cards`, {
             headers: this._options.headers
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                } else {
-                    return Promise.reject(`Ошибка: ${res.status}`);
-                }
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+            .then(this._getResponseData)
     }
-
     addProfile(data) {
         return fetch(`${this._options.baseUrl}/users/me`, {
             method: 'PATCH',
@@ -41,16 +29,7 @@ class Api {
                 about: data.job
             })
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                } else {
-                    return Promise.reject(`Ошибка: ${res.status}`);
-                }
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+            .then(this._getResponseData)
     }
     addCard(data) {
         return fetch(`${this._options.baseUrl}/cards`, {
@@ -61,42 +40,23 @@ class Api {
                 link: data.link
             })
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                } else {
-                    return Promise.reject(`Ошибка: ${res.status}`);
-                }
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+            .then(this._getResponseData)
     }
     deleteCard(id) {
         return fetch(`${this._options.baseUrl}/cards/${id}`, {
             method: 'DELETE',
             headers: this._options.headers
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                } else {
-                    return Promise.reject(`Ошибка: ${res.status}`);
-                }
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+            .then(this._getResponseData)
     }
     toggleLike(id, isDisliked) {
         return fetch(`${this._options.baseUrl}/cards/${id}/likes`, {
             method: isDisliked ? 'PUT' : 'DELETE',
             headers: this._options.headers
         })
-            .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
-            .catch(err => console.log(err));
+            .then(this._getResponseData)
     }
-    addAvatar({avatar}) {
+    addAvatar({ avatar }) {
         return fetch(`${this._options.baseUrl}/users/me/avatar`, {
             method: 'PATCH',
             headers: this._options.headers,
@@ -104,8 +64,7 @@ class Api {
                 avatar: avatar
             })
         })
-            .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
-            .catch(err => console.log(err));
+            .then(this._getResponseData)
     }
     getUserAndCard() {
         const promises = [this.getProfile(), this.getInitialCards()];

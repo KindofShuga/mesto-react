@@ -1,21 +1,18 @@
-import PopupWithForm from '../PopupWithForm/PopupWithForm.js';
+import PopupWithForm from './PopupWithForm.js';
 import { useState } from 'react';
 
 export default function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
-    const [name, setName] = useState("");
-    const [link, setLink] = useState("");
+    const [formValues, setFormValues] = useState({ name: "", link: "" });
 
-    function handleNameChange(e) {
-        setName(e.target.value);
-    }
-    function handleLinkChange(e) {
-        setLink(e.target.value);
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormValues(prevState => ({ ...prevState, [name]: value }));
     }
     function handleSubmit(e) {
         e.preventDefault();
         onAddPlace({
-            name: name,
-            link: link,
+            name: formValues.name,
+            link: formValues.link
         });
     }
     return (
@@ -33,7 +30,7 @@ export default function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
                     id="title-input"
                     name="name"
                     className="popup__input popup__input_el_title"
-                    onChange={handleNameChange}
+                    onChange={handleChange}
                     placeholder="Название"
                     minLength="2"
                     maxLength="30"
@@ -47,7 +44,7 @@ export default function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
                     id="img-input"
                     name="link"
                     className="popup__input popup__input_el_img"
-                    onChange={handleLinkChange}
+                    onChange={handleChange}
                     placeholder="Ссылка на картинку"
                     required
                 />
