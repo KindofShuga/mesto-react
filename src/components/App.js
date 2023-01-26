@@ -17,7 +17,7 @@ export default function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isConfirmPopupOpen, setIsConfirmPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
-  const [selectedDelitedCard, setSelectedDelitedCard] = useState(null);
+  const [selectedDeletedCard, setSelectedDeletedCard] = useState(null);
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
 
@@ -57,8 +57,8 @@ export default function App() {
   function handleConfirmPopupClick() {
     setIsConfirmPopupOpen(true);
   }
-  function handleDelitedCardClick(card) {
-    setSelectedDelitedCard(card);
+  function handleDeletedCardClick(card) {
+    setSelectedDeletedCard(card);
   }
   function handleCardDelete(card) {
     api.deleteCard(card._id)
@@ -109,7 +109,7 @@ export default function App() {
           onConfirm={handleConfirmPopupClick}
           onCardClick={handleCardClick}
           onCardLike={handleCardLike}
-          onCardClickDelete={handleDelitedCardClick}
+          onCardClickDelete={handleDeletedCardClick}
           cards={cards}
         />
         <Footer />
@@ -141,7 +141,7 @@ export default function App() {
             isOpen={isConfirmPopupOpen}
             onClose={closeAllPopups}
             onCardDelete={handleCardDelete}
-            delitedCard={selectedDelitedCard}
+            deletedCard={selectedDeletedCard}
           />}
       </CurrentUserContext.Provider>
     </>

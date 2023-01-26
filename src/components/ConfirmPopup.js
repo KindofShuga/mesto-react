@@ -1,11 +1,11 @@
 import PopupWithForm from './PopupWithForm.js';
 import { useState } from 'react';
-export default function ConfirmPopup({ isOpen, onClose, onCardDelete, delitedCard }) {
+export default function ConfirmPopup({ isOpen, onClose, onCardDelete, deletedCard }) {
     const [buttonTitle, setButtonTitle] = useState("Да");
     function handleSubmit(e) {
         e.preventDefault();
         setButtonTitle("Удаление...")
-        onCardDelete(delitedCard);
+        onCardDelete(deletedCard);
     }
     return (
         <PopupWithForm
